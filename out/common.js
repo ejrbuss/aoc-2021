@@ -1,13 +1,13 @@
-import { readFile } from "fs/promises";
-export async function challenge(spec, impl) {
-    const { day, part } = spec;
-    try {
-        console.log(`[${day}.${part}] Starting...`);
-        const input = await readFile(`./input/day${day}.txt`, "utf-8");
-        const result = await impl(input);
-        console.log(`[${day}.${part}] Complete:`, result, "\n");
-    }
-    catch (error) {
-        console.error(`[${day}.${part}] Error:`, error, "\n");
-    }
+export const Challenges = {};
+export function challenge(spec, impl) {
+    Challenges[spec.day + "." + spec.part] = impl;
+}
+export function parseLines(input) {
+    return input.trim().split("\n");
+}
+export function parseNumbers(input) {
+    return parseLines(input).map((line) => parseInt(line));
+}
+export function parseRegExp(input, regExp) {
+    return parseLines(input).map((line) => line.match(regExp));
 }
