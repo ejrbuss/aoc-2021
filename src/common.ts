@@ -22,3 +22,13 @@ export function parseNumbers(input: string): number[] {
 export function parseRegExp(input: string, regExp: RegExp): string[][] {
 	return parseLines(input).map((line) => line.match(regExp) as string[]);
 }
+
+export function zipWith<A, B, C>(
+	as: A[],
+	bs: B[],
+	f: (a: A, b: B, i: number) => C
+): C[] {
+	return Array.from(Array(Math.max(as.length, bs.length)), (_, i) =>
+		f(as[i], bs[i], i)
+	);
+}

@@ -3,6 +3,7 @@ import { Challenges } from "./common.js";
 
 import "./day1.js";
 import "./day2.js";
+import "./day3.js";
 
 const [_node, _script, spec, ...inputs] = process.argv;
 const impl = Challenges[spec];
