@@ -23,12 +23,32 @@ export function parseRegExp(input: string, regExp: RegExp): string[][] {
 	return parseLines(input).map((line) => line.match(regExp) as string[]);
 }
 
+export function chunk<T>(array: T[], n: number): T[][] {
+	const length = array.length;
+	const chunks: T[][] = [];
+	let chunk: T[] = [];
+	for (let i = 0; i < length; i += 1) {
+		chunk.push(array[i]);
+		if (chunk.length === n) {
+			chunks.push(chunk);
+			chunk = [];
+		}
+	}
+	if (chunk.length) {
+		chunks.push(chunk);
+	}
+	return chunks;
+}
+
 export function zipWith<A, B, C>(
-	as: A[],
-	bs: B[],
+	array1: A[],
+	array2: B[],
 	f: (a: A, b: B, i: number) => C
 ): C[] {
-	return Array.from(Array(Math.max(as.length, bs.length)), (_, i) =>
-		f(as[i], bs[i], i)
-	);
+	const length = Math.max(array1.length, array2.length);
+	const acc: C[] = [];
+	for (let i = 0; i < length; i += 1) {
+		acc.push(f(array1[i], array2[i], i));
+	}
+	return acc;
 }

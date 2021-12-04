@@ -11,6 +11,27 @@ export function parseNumbers(input) {
 export function parseRegExp(input, regExp) {
     return parseLines(input).map((line) => line.match(regExp));
 }
-export function zipWith(as, bs, f) {
-    return Array.from(Array(Math.max(as.length, bs.length)), (_, i) => f(as[i], bs[i], i));
+export function chunk(array, n) {
+    const length = array.length;
+    const chunks = [];
+    let chunk = [];
+    for (let i = 0; i < length; i += 1) {
+        chunk.push(array[i]);
+        if (chunk.length === n) {
+            chunks.push(chunk);
+            chunk = [];
+        }
+    }
+    if (chunk.length) {
+        chunks.push(chunk);
+    }
+    return chunks;
+}
+export function zipWith(array1, array2, f) {
+    const length = Math.max(array1.length, array2.length);
+    const acc = [];
+    for (let i = 0; i < length; i += 1) {
+        acc.push(f(array1[i], array2[i], i));
+    }
+    return acc;
 }
