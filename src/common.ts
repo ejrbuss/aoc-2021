@@ -15,8 +15,11 @@ export function parseLines(input: string): string[] {
 	return input.trim().split("\n");
 }
 
-export function parseNumbers(input: string): number[] {
-	return parseLines(input).map((line) => parseInt(line));
+export function parseNumbers(input: string, sep = "\n"): number[] {
+	return input
+		.trim()
+		.split(sep)
+		.map((line) => parseInt(line));
 }
 
 export function parseRegExp(input: string, regExp: RegExp): string[][] {
