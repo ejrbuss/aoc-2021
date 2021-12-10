@@ -1,11 +1,11 @@
-import { readFileSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { Challenges } from "./common.js";
-import "./day1.js";
-import "./day2.js";
-import "./day3.js";
-import "./day4.js";
-import "./day5.js";
-import "./day6.js";
+// Import days
+for (const file of readdirSync("./out")) {
+    if (file.startsWith("day") && file.endsWith(".js")) {
+        await import(`./${file}`);
+    }
+}
 const [_node, _script, spec, ...inputs] = process.argv;
 const impl = Challenges[spec];
 inputs.forEach((input) => {

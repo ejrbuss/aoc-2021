@@ -55,3 +55,19 @@ export function zipWith<A, B, C>(
 	}
 	return acc;
 }
+
+export function min(array: number[]): number {
+	let min = Infinity;
+	for (const value of array) {
+		min = Math.min(value, min);
+	}
+	return min;
+}
+
+export function max(array: number[]): number {
+	let max = -Infinity;
+	for (const value of array) {
+		max = Math.max(value, max);
+	}
+	return max;
+}
