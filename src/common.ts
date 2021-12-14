@@ -12,7 +12,11 @@ export function challenge(spec: ChallengeSpec, impl: ChallengeImpl) {
 }
 
 export function parseLines(input: string): string[] {
-	return input.trim().split("\n");
+	return input
+		.trim()
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line.length);
 }
 
 export function parseNumbers(input: string, sep = "\n"): number[] {
