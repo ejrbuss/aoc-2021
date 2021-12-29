@@ -77,11 +77,7 @@ class Amphipod {
 }
 
 class State {
-	constructor(
-		public amphipods: Amphipod[],
-		public energy: number,
-		public previousState?: State
-	) {}
+	constructor(public amphipods: Amphipod[], public energy: number) {}
 
 	isOrganized(): boolean {
 		for (const amphipod of this.amphipods) {
@@ -236,11 +232,7 @@ class IntermediateState {
 		const cost = this.originalAmphipod.costToMoveTo(
 			this.currentAmphipod.position
 		);
-		return new State(
-			this.amphipods,
-			originalState.energy + cost
-			// originalState // for tracing
-		);
+		return new State(this.amphipods, originalState.energy + cost);
 	}
 }
 
@@ -276,31 +268,7 @@ function energyToOrganize(initialState: State): number {
 			continue;
 		}
 		visited.add(state.amphipods);
-		// prettier-ignore
-		const desired = `#############
-#.........A.#
-###.#B#C#D###
-  #A#B#C#D#
-  #########`;
-		// if (state.toString() === desired) {
-		// throw new Error("Found desried state: " + state.energy);
-		// }
 		if (state.isOrganized()) {
-			// const trace: State[] = [];
-			// let currentState: State | undefined = state;
-			// while (currentState) {
-			// 	trace.unshift(currentState);
-			// 	currentState = currentState.previousState;
-			// }
-			// let totalEnergy = 0;
-			// for (const traceState of trace) {
-			// 	console.log(traceState.toString());
-			// 	console.log(
-			// 		`${traceState.energy} (${traceState.energy - totalEnergy})`
-			// 	);
-			// 	console.log();
-			// 	totalEnergy += traceState.energy;
-			// }
 			return state.energy;
 		}
 		const nextStates = state.nextStates();
